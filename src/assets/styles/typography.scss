@@ -1,0 +1,65 @@
+@import './base/vars.scss';
+@import './base/mixins.scss';
+
+.text-heading-xl {
+  font-weight: 900;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: 0%;
+
+  @include bp($md) {
+    font-size: 104px;
+  }
+}
+.text-heading-lg {
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0%;
+  font-size: 32px;
+  @include bp($md) {
+    font-size: 48px;
+  }
+}
+.text-heading-md {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: 0%;
+
+  @include bp($md) {
+    font-size: 32px;
+  }
+}
+.text-heading-sm {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  letter-spacing: 0%;
+}
+
+.text-xl {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 0%;
+}
+.text-sm {
+  font-size: 18px;
+  line-height: 1.556;
+  letter-spacing: 0%;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
+a {
+  font-size: 18px;
+  color: $green-light;
+
+  transition-timing-function: ease-out;
+  transition-duration: $transition-durtaion-mid;
+  transition-property: color;
+  &:hover {
+    color: $white;
+  }
+}
