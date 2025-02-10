@@ -5,11 +5,14 @@ import { computed, watch } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import { hideForm, openForm } from './utils/popup-contorl'
 import RegistrationForm from './components/widgets/forms/registration-form.vue'
+import LoginForm from './components/widgets/forms/login-form.vue'
 
 const route = useRoute()
 const isRegistration = computed(() => route.path == '/registration')
-watch(isRegistration, (val) => {
-  if (val) openForm(RegistrationForm)
+const isLogin = computed(() => route.path == '/login')
+watch([isRegistration, isLogin], ([isRegistrationVal, isLoginVal]) => {
+  if (isRegistrationVal) openForm(RegistrationForm)
+  else if (isLoginVal) openForm(LoginForm)
   else hideForm()
 })
 </script>

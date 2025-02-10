@@ -44,9 +44,13 @@
   letter-spacing: 0%;
 }
 .text-sm {
-  font-size: 18px;
   line-height: 1.556;
   letter-spacing: 0%;
+  font-size: 14px;
+
+  @include bp($md){
+    font-size: 18px;
+  }
 }
 
 .font-bold {

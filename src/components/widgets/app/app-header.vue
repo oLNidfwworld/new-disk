@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import IEnter from '@/components/svg/i-enter.vue'
 import ILogo from '@/components/svg/i-logo.vue'
-import ControlButton from '@/components/ui/control-button.vue'
-</script>
+import IUser from '@/components/svg/i-user.vue';
+import ControlButton from '@/components/ui/control-button.vue';
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
 
+const userStore = useUserStore();
+const { isLoggedIn, userData } = storeToRefs(userStore);
+</script>
 <template>
   <header class="header">
     <div class="container">
@@ -11,10 +16,16 @@ import ControlButton from '@/components/ui/control-button.vue'
         <RouterLink class="flex items-center" to="/">
           <ILogo class="header__logo" />
         </RouterLink>
-        <ControlButton to="/registration">
+        <ControlButton v-if="!isLoggedIn" to="/registration">
           <IEnter />
           <span>Вход</span>
         </ControlButton>
+        <div v-else class="items-center flex gap-3">
+          <span class="text-sm">
+            {{ userData?.email }}
+          </span>
+          <IUser/>
+        </div>
       </div>
     </div>
   </header>

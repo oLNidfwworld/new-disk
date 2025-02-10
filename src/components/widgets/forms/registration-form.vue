@@ -1,18 +1,50 @@
 <script setup lang="ts">
+import type { RegistrationInput } from '@/assets/types/user';
 import ControlButton from '@/components/ui/control-button.vue'
 import ControlInput from '@/components/ui/control-input.vue'
+import { useUserStore } from '@/stores/user';
+import { login, register } from '@/utils/auth';
+import { hideForm } from '@/utils/popup-contorl';
+import { nextTick, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
+const userStore = useUserStore();
+const { setAccessToken, setUserData } = userStore
+
+const userData = reactive<RegistrationInput>({
+  confirm_password: '',
+  email: '',
+  password: ''
+})
+
+async function submit( ) {
+  const data =  await register(userData);
+  if (!data) return;
+  if ( 'statusCode' in data ) {
+    return;
+  }
+  setUserData(data);
+  const authData = await login(userData);
+  if ( !authData ) return;
+  if ( !('statusCode' in authData) ) {
+    setAccessToken(authData.accessToken);
+    hideForm();
+    await nextTick();
+    useRouter().push('/notes')
+  }
+}
 </script>
 
 <template>
-  <form class="registration-form">
+  <form class="registration-form" @submit.prevent="submit">
     <h2 class="text-heading-lg">Регистрация</h2>
     <div class="registration-form__inputs">
-      <ControlInput title="Email" type="email" placeholder="Введите Email" />
-      <ControlInput title="Пароль" type="password" placeholder="Введите пароль" />
-      <ControlInput title="Пароль ещё раз" type="password" placeholder="Пароль ещё раз" />
+      <ControlInput v-model="userData.email" required title="Email" type="email" name="email" placeholder="Введите Email" />
+      <ControlInput v-model="userData.password" required title="Пароль" type="password" name="password" placeholder="Введите пароль" />
+      <ControlInput v-model="userData.confirm_password" required title="Пароль ещё раз" type="password" name="confirm_password" placeholder="Пароль ещё раз" />
     </div>
     <div class="registration-form__footer">
-      <ControlButton class="registration-form__submit">Войти</ControlButton>
+      <ControlButton type="submit" class="registration-form__submit">Войти</ControlButton>
       <span>У вас есть аккаунт? <RouterLink to="/login">Войдите!</RouterLink> </span>
     </div>
   </form>
@@ -35,29 +67,5 @@ import ControlInput from '@/components/ui/control-input.vue'
 }
 </style>
 <style lang="scss" scoped>
-@import '/src/assets/styles/helpers.scss';
-@import '/src/assets/styles/base/vars.scss';
-@import '/src/assets/styles/base/mixins.scss';
-.registration-form {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  &__inputs {
-    display: flex;
-    gap: 16px;
-    flex-direction: column;
-  }
-  &__footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    font-size: 18px;
-
-    @include bp($md) {
-      flex-direction: row-reverse;
-      justify-content: space-between;
-    }
-  }
-}
+@import '/src/assets/styles/shared/form.scss';
 </style>

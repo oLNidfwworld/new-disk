@@ -1,4 +1,5 @@
 import HomeView from '@/components/view/home-view.vue'
+import NotesView from '@/components/view/notes-view.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -13,6 +14,16 @@ const router = createRouter({
       path: '/registration',
       name: 'Registration',
       component: HomeView,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: HomeView,
+    },
+    {
+      path: '/notes',
+      name: 'Notes',
+      component: NotesView,
     },
   ],
 })
