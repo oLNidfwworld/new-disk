@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, shallowRef, triggerRef, watch, type DefineComponent } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import {  useRouter } from 'vue-router'
 
 export const usePopupStore = defineStore('popup', () => {
   const component =

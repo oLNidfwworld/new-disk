@@ -6,7 +6,7 @@ export const useUserStore = defineStore('user', () => {
 
   const accessToken = ref<string | undefined>();
   const userData = ref<RegistrationOutput | undefined>();
-  
+
 
   function setUserData( data: RegistrationOutput ) {
     userData.value = data;
