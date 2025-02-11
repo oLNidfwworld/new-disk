@@ -140,6 +140,10 @@ a {
 // Addresses FF3/4 setting line-height on 'input' using !important in the UA stylesheet
 button,
 input {
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
+  border: inherit;
   line-height: normal; // 1
 }
 

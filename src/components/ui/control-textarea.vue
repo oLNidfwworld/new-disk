@@ -17,7 +17,7 @@ const elementId = computed<string>(() => (attrs.id ? (attrs.id as string) : uid)
     <label v-if="$attrs.title" class="control-input__label" :for="elementId">
       {{ $attrs.title }}
     </label>
-    <input v-bind="$attrs" :id="elementId" v-model="model" class="control-input__input" />
+    <textarea v-bind="$attrs" :id="elementId" v-model="model" class="control-input__input" />
     <div v-if="$attrs.maxlength" class="control-input__additional-row">
       <span />
       <span v-if="modelLength && $attrs.maxlength" class="text-sm control-input__max">
@@ -28,4 +28,8 @@ const elementId = computed<string>(() => (attrs.id ? (attrs.id as string) : uid)
 </template>
 <style scoped lang="scss">
 @import '/src/assets/styles/shared/input.scss';
+textarea {
+  resize: none;
+  height: 280px;
+}
 </style>

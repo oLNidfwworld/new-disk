@@ -1,7 +1,8 @@
+@import './base/vars.scss';
 .flex {
   display: flex;
 }
-.gap-3{
+.gap-3 {
   gap: 0.75rem;
 }
 .items-center {
@@ -12,4 +13,7 @@
 }
 .w-full {
   width: 100%;
+}
+.text-white {
+  color: $white !important;
 }

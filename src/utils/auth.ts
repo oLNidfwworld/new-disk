@@ -1,38 +1,43 @@
-import type { RegistrationOutput,  RegistrationInput, AuthInput, AuthOutput } from "@/assets/types/user";
-import { myFetch } from "./fetch";
-import type { ApiError } from "@/assets/types/error";
+import type {
+  RegistrationOutput,
+  RegistrationInput,
+  AuthInput,
+  AuthOutput,
+} from '@/assets/types/user'
+import { myFetch } from './fetch'
+import type { ApiError } from '@/assets/types/error'
 
-async function register( input : RegistrationInput ) {
+async function register(input: RegistrationInput) {
   const response = await myFetch<RegistrationOutput | ApiError>('/reg', {
-    method : 'POST',
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body : JSON.stringify(input)
-  });
+    body: JSON.stringify(input),
+  })
 
-  return response;
+  return response
 }
 
-async function login( input : AuthInput ) {
+async function login(input: AuthInput) {
   const response = await myFetch<AuthOutput>('/auth', {
-    method : 'POST',
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body : JSON.stringify(input)
-  });
+    body: JSON.stringify(input),
+  })
 
-  return response;
+  return response
 }
 
-async function getUserData( access_token : string ) {
+async function getUserData(accessToken: string) {
   const response = await myFetch<RegistrationOutput>('/auth', {
-    method : 'GET',
-    headers: {Authorization: access_token}
-  });
+    method: 'GET',
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
 
-  return response;
+  return response
 }
 
 export { register, login, getUserData }

@@ -38,7 +38,7 @@
 }
 
 .text-xl {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   line-height: 1.6;
   letter-spacing: 0%;
@@ -48,7 +48,7 @@
   letter-spacing: 0%;
   font-size: 14px;
 
-  @include bp($md){
+  @include bp($md) {
     font-size: 18px;
   }
 }
@@ -56,7 +56,10 @@
 .font-bold {
   font-weight: 700 !important;
 }
-a {
+a,
+.like-link {
+  padding: 0;
+  cursor: pointer;
   font-size: 18px;
   color: $green-light;
 

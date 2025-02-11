@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, shallowRef, triggerRef, watch, type DefineComponent } from 'vue'
-import {  useRouter } from 'vue-router'
 
 export const usePopupStore = defineStore('popup', () => {
   const component =
@@ -8,7 +7,10 @@ export const usePopupStore = defineStore('popup', () => {
     shallowRef<DefineComponent<Record<string, unknown>, Record<string, unknown>, any>>()
   const visibility = ref(false)
 
-  const router = useRouter()
+  const componentVariables = ref<unknown>()
+  function setComponentVariables(data: unknown) {
+    componentVariables.value = data
+  }
 
   const setComponent = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,22 +24,14 @@ export const usePopupStore = defineStore('popup', () => {
     visibility.value = newValue
   }
   watch(visibility, (val) => {
-    if (!val) {
-      if (router.options.history.state?.back) router.back()
-      else router.push('/')
-    }
+    document.body.style.overflow = val ? 'hidden' : 'initial'
   })
-
-  watch(
-    () => visibility.value,
-    (newValue) => {
-      document.body.style.overflow = newValue ? 'hidden' : 'initial'
-    },
-  )
 
   return {
     component,
     visibility,
+    componentVariables,
+    setComponentVariables,
 
     setComponent,
     setVisibility,

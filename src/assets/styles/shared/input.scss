@@ -1,0 +1,46 @@
+@import '/src/assets/styles/base/mixins.scss';
+@import '/src/assets/styles/base/vars.scss';
+
+.control-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  color: $dark;
+  &__label {
+    color: $gray;
+    padding: 0 24px;
+  }
+
+  &__input {
+    background-color: $white;
+    width: auto;
+    font-size: inherit;
+    border-radius: 36px;
+    padding: 22.5px 28px;
+    width: auto;
+    border: 2px solid transparent;
+    font-family: inherit;
+    transition-timing-function: ease-in-out;
+    transition-duration: $transition-durtaion-fast;
+    transition-property: border-color;
+
+    &::placeholder {
+      color: $gray;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $green-light;
+      }
+    }
+  }
+  &__additional-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__max {
+    color: $gray;
+  }
+}

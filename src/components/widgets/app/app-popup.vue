@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ICross from '@/components/svg/i-cross.vue'
+import ControlButton from '@/components/ui/control-button.vue'
 import { usePopupStore } from '@/stores/popup'
 import { computed } from 'vue'
 
@@ -10,6 +12,12 @@ const visibility = computed(() => popupStore.visibility)
   <!-- <Transition name="popup-appear"> -->
   <div v-if="visibility" class="app-popup" @click="popupStore.visibility = false">
     <div class="app-popup__wrapper" @click.stop>
+      <ControlButton
+        class="app-popup__close"
+        preference="round"
+        @click="popupStore.visibility = false"
+        ><ICross
+      /></ControlButton>
       <component :is="popupStore.component" />
     </div>
     <div class="app-popup__overlay" />
@@ -26,7 +34,13 @@ const visibility = computed(() => popupStore.visibility)
   align-items: center;
   justify-content: center;
 
+  &__close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
   &__wrapper {
+    position: relative;
     max-width: 100%;
     padding: 42px 16px;
     height: fit-content;

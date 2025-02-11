@@ -4,10 +4,13 @@ import ControlButton from '@/components/ui/control-button.vue'
 import ControlInput from '@/components/ui/control-input.vue'
 import { useUserStore } from '@/stores/user'
 import { getUserData, login } from '@/utils/auth'
+import { hideForm, openForm } from '@/utils/popup-contorl'
 import { reactive } from 'vue'
+import RegistrationForm from './registration-form.vue'
+import { setCookie } from '@/utils/cookie'
 
 const userStore = useUserStore()
-const { setAccessToken, setUserData } = userStore
+const { setUserData, setAccessToken } = userStore
 
 const userData = reactive<AuthInput>({
   email: '',
@@ -15,11 +18,12 @@ const userData = reactive<AuthInput>({
 })
 
 async function submit() {
-  const authData = await login( userData)
+  const authData = await login(userData)
   if (!authData) return
   if ('statusCode' in authData) {
     return
   }
+  setCookie('access_token', authData.accessToken)
   setAccessToken(authData.accessToken)
   const userApiData = await getUserData(authData.accessToken)
   if (!userApiData) {
@@ -29,6 +33,7 @@ async function submit() {
     return
   }
   setUserData(userApiData)
+  hideForm()
 }
 </script>
 
@@ -54,10 +59,12 @@ async function submit() {
       />
     </div>
     <div class="registration-form__footer">
-      <ControlButton class="registration-form__submit">Войти</ControlButton>
+      <ControlButton type="submit" class="registration-form__submit">Войти</ControlButton>
       <span
         >У вас нет аккаунта? <br />
-        <RouterLink to="/registration">Загеристрируйтесь!</RouterLink>
+        <button type="button" class="like-link" @click="() => openForm(RegistrationForm)">
+          Зарегистрируйтесь!
+        </button>
       </span>
     </div>
   </form>
