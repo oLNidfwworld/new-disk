@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { NoteRecord } from '@/assets/types/note'
 import ICross from '../svg/i-cross.vue'
-import { getCookie } from '@/utils/cookie'
 import { useNotesStore } from '@/stores/note'
 import { useUserStore } from '@/stores/user'
 interface IProps {
